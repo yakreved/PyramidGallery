@@ -1,0 +1,22 @@
+<div metal:use-macro="layout">
+    <div metal:fill-slot="content">
+    	<div class="title">
+      		<h1>Add new image</h1>
+      		<p>Supported formats: jpg, jpeg, gif.</p>
+      	</div>
+				<form action="\addImage" method="POST" enctype="multipart/form-data">
+		    	<table>
+		    		<tr>
+		    			<td>Name:</td>      <td><input type="text" name="name"></td>
+					</tr>
+		    		<tr>
+		    			<td>Description:</td>   <td><input type="text" name="description"></td>
+		    		</tr>
+		    		<tr>
+		    			<td>Image:</td>   <td><input type="file" name="image" value="Choose image"  accept="image/jpeg,image/png,image/gif"/></td>
+		    		</tr>
+		    	</table>
+		    <p><input type="submit" value="Add"></p>
+		    <form>
+    </div>
+</div>

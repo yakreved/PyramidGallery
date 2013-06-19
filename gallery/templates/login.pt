@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>Login</title>
+		<link rel="stylesheet" href="${request.static_url('gallery:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
+	</head>
+	<body>
+		<!-- start header -->
+		<div id="wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1><a href="#" tabindex="-1">${message}</a> </h1>
+				<p><a href="http://www.freecsstemplates.org/" tabindex="-1">Please login to continue</a></p>
+			</div>
+		</div>
+		<!-- end header -->
+		<div id="loginform" >
+		<!-- start content -->
+			<form action="\login" method="POST">
+					    	<table>
+					    		<tr>
+					    			<td>Name:</td>      <td><input tabindex="1" autofocus type="text" name="username" value="user"></td>
+								</tr>
+					    		<tr>
+					    			<td>Password:</td>   <td><input tabindex="2" type="password" name="userpass" value="user"></td>
+					    		</tr>
+					    	</table>
+				<input type="submit" value="Login!" tabindex="3"/>
+			</form>
+		</div>
+		</div>
+	</body>
+</html>

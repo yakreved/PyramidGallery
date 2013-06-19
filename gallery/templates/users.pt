@@ -1,0 +1,55 @@
+<div metal:use-macro="layout">
+    <div metal:fill-slot="content">
+    	<div class="post">
+	    	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		    <script type="text/javascript">
+		    	function del(b){
+		    		$.ajax({
+					  url:'\deleteUser',
+					  type: "POST",
+					  data: {"id": b.value},
+					  success: refr
+					});
+		    	};
+
+		    	function refr (){
+					  	location.reload();
+					  	}
+			</script>
+	      <h2>Users</h2>
+	      <table>
+	      <tal:block repeat="us users">
+	      	<div class="title">
+				<h2>
+
+						<tr>
+							<td>
+								<a href="#">${us.name}</a>
+							</td>
+							<td> 
+								<button align="right" value="${us.id}" onClick="del(this)">delete</button> 
+							</td>
+						</tr>
+				</h2>
+			</div>
+	      </tal:block>
+	  </table>
+	  </div>
+	  		<div class="post">
+	  			<div class="title">
+				<h2>Add user</h2>
+				    <form action="\addUser" method="POST">
+				    	<table>
+				    		<tr>
+				    			<td>Name:</td>      <td><input type="text" name="username"></td>
+							</tr>
+				    		<tr>
+				    			<td>Password:</td>   <td><input type="text" name="userpass"></td>
+				    		</tr>
+				    	</table>
+				    <p><input type="submit" value="Add"></p>
+				    <form>
+			</div>
+	  		</div>
+    </div>
+</div>

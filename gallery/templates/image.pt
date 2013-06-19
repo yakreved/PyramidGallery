@@ -1,0 +1,19 @@
+<div metal:use-macro="layout">
+    <div metal:fill-slot="content">
+      <div class="post">
+      		<div class="title">
+      			<h1>${image.name}</h1>
+      			<p>${image.description}</p>
+      		</div>
+      		<img src="${image.url}" width="850"/>
+      		<div>
+      			posted at ${image.date} by ${user.name}
+      		</div>
+      	</div>
+      	<div class="post">
+      		<div class="title">
+      			<h1>Comments</h1>
+      		</div>
+      	</div>
+    </div>
+</div>

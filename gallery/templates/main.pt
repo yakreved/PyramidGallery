@@ -1,0 +1,16 @@
+<div metal:use-macro="layout">
+    <div metal:fill-slot="content">
+      <tal:block repeat="im images">
+      	<div class="post">
+      		<div class="title">
+      			<h1><a href="/image/${im.id}">${im.name}</a></h1>
+      			<p>${im.description}</p>
+      		</div>
+      		<img src="${im.url}" width="850"/>
+      		<div>
+      			${im.date}
+      		</div>
+      	</div>
+      </tal:block>
+    </div>
+</div>
