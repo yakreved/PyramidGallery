@@ -7,7 +7,26 @@
       		</div>
       		<img src="${image.url}" width="850"/>
       		<div>
-      			posted at ${image.date} by ${user.name}
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+            <script type="text/javascript">
+              function deleteImage(b){
+                $.ajax({
+                url:'../delImage',
+                type: "POST",
+                data: {"image_id": b.value},
+                success: refr
+              })
+              }
+
+              function refr (){
+                  alert("Image deleted!")
+                  window.location.href = "../";
+                  }
+            </script>
+      			posted at ${image.date} by ${user.name} 
+            <button value="${image.id}" aligin="right" OnClick="deleteImage(this)" hidden="${nodelete}">
+                <span title="Only owner can kill image.">delete</span>
+            </button>
       		</div>
       	</div>
       	<div class="post">
