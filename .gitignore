@@ -33,4 +33,6 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
-!gallery\static\images\*
+/gallery/.metadata/*
+/gallery/static/images/*
+/gallery/.idea/*

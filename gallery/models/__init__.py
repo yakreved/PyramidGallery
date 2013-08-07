@@ -2,6 +2,7 @@ import sqlalchemy#начните работу с этой библиотеки
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
 engine = create_engine('postgresql://user:pass@localhost:5432/postgres')
 Base = declarative_base()
@@ -11,6 +12,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     password = Column(String)
+    comments = relationship("Comment", backref="user")
  
     def __init__(self, name, password):
         self.name = name
@@ -35,9 +37,27 @@ class Image(Base):
         self.date = date
         self.fk_gallery = fk_gallery
         self.fk_owner = fk_owner
-
+    
     def __repr__(self):
         return "<User('%s', '%s')>" % (self.name, self.description)
+
+
+class Comment(Base):
+    __tablename__ = 'comments'
+    id = Column(Integer, primary_key=True)
+    fk_owner = Column(Integer, ForeignKey('users.id'), nullable=False)
+    fk_image = Column(Integer)
+    date = Column(DateTime)
+    text = Column(String)
+
+    def __init__(self,fk_owner, fk_image,date,text):
+        self.fk_owner = fk_owner
+        self.fk_image = fk_image
+        self.date = date
+        self.text = text
+
+    def __repr__(self):
+        return "<Comment('%s')>"%(self.text)
 
 metadata = Base.metadata
 metadata.create_all(engine)

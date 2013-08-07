@@ -32,7 +32,26 @@
       	<div class="post">
       		<div class="title">
       			<h1>Comments</h1>
+            <tal:block repeat="co comments">
+              <div class="links">
+                    <tr>
+                      <td>
+                        <a href="#">${co.user.name}</a>
+                      </td>
+                      <td> 
+                        <span >${co.text}</span>
+                      </td>
+                    </tr>
+              </div>
+            </tal:block>
       		</div>
+          <div>
+            <form action="\addComment" type="POST">
+            	<input type="hidden" value="${image.id}" name="imageid"/>
+              <input name="message" type="text"/>
+              <input type="submit"/>
+            </form>
+          </div>
       	</div>
     </div>
 </div>

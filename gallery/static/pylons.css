@@ -284,8 +284,8 @@ button {
 .post .links {
   float: left;
   width: 510px;
-  margin: 0;
-  padding: 6px 0 0 0px;
+  #margin: 20 10 0 0;
+  padding: 20px 20 20 20px;
 }
 
 .post .links a {
@@ -294,14 +294,19 @@ button {
   text-transform: uppercase;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  font-size: 10px;
-  color: #CF3822;
+  font-size: 20px;
+  color: white;
   background: #C65C18;
   border-top: 1px solid #D7D3CD;
   border-left: 1px solid #D7D3CD;
   border-right: 2px solid #362F23;  
   border-bottom: 1px solid #362F23;
 
+}
+
+.post .links span {
+	padding: 20px 20 20 20px;
+	font-size:20px
 }
 
 .post .links a:hover {

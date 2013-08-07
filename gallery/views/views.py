@@ -1,31 +1,11 @@
 from pyramid.view import view_config
-import os
-from pyramid.renderers import render_to_response
 from pyramid.httpexceptions import HTTPFound
-from gallery.models import User
-from gallery.models import Image
-from gallery import Session
 from pyramid.renderers import get_renderer
 from pyramid.response import Response
-import datetime
 
-
-def checkuser(username,userpass):
-    session = Session()
-    ourUser = session.query(User).filter_by(name=username, password=userpass).first()
-    if ourUser is None:
-        return False
-    print("user connected: " + ourUser.name)
-    return ourUser
-
-
-def nosession(request):
-    if('username' in request.cookies and 'userpass' in request.cookies):
-        session = Session()
-        user = session.query(User).filter_by(name=request.cookies['username'], password=request.cookies['userpass']).first()
-        return user == None 
-    print("user has no session")
-    return True
+from gallery.models import Image
+from gallery import Session
+from gallery.modules.session import checkuser, nosession
 
 
 def site_layout():

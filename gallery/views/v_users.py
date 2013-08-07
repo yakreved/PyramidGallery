@@ -2,9 +2,9 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from gallery.models import User
 from gallery import Session
-from gallery.views.views import nosession, site_layout
+from gallery.views.views import site_layout
 from pyramid.response import Response
-import datetime
+from gallery.modules.session import nosession
 
 
 @view_config(route_name='users', renderer='gallery:templates/users.pt')

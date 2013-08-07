@@ -17,6 +17,7 @@ def main(global_config, **settings):
     config.add_route('addImage', '/addImage')
     config.add_route('delImage', '/delImage')
     config.add_route('image', '/image/{imagename}')
+    config.add_route('addComment', '/addComment')
     config.add_route('home', '/')
     #config.scan()
     config.scan("gallery.views")

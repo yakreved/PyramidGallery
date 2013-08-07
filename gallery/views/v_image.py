@@ -2,15 +2,13 @@ from pyramid.view import view_config
 import os
 import threading
 import time
-from pyramid.renderers import render_to_response
 from pyramid.httpexceptions import HTTPFound
-from gallery.models import User
-from gallery.models import Image
-from gallery.views.views import nosession,site_layout
+from gallery.models import User, Image, Comment
+from gallery.views.views import site_layout
 from gallery import Session
-from pyramid.renderers import get_renderer
 from pyramid.response import Response
 import datetime
+from gallery.modules.session import nosession, getOurUser
 
 
 @view_config(route_name='addImage', renderer='gallery:templates/add.pt')
@@ -19,8 +17,7 @@ def addImage(request):
         return HTTPFound(location = "/login")
     if request.method=="POST":
         session = Session()
-        ourUser = session.query(User).filter_by(name=request.cookies['username'], 
-                                                password=request.cookies['userpass']).first()
+        ourUser = getOurUser(request)
         print('addind image by '+ ourUser.name)
         _here = os.path.split(os.path.dirname(__file__))[0]
         input_file = request.POST['image'].file
@@ -40,9 +37,10 @@ def image(request):
         return HTTPFound(location = "/login")
     name = request.matchdict['imagename']
     session = Session()
-    ourUser = session.query(User).filter_by(name=request.cookies['username'], password=request.cookies['userpass']).first()
+    ourUser = getOurUser(request)
     image = session.query(Image).filter_by(id = name).one()
     user = session.query(User).filter_by(id = image.fk_owner).one()
+    comments = session.query(Comment).filter_by(fk_image = image.id).all()
     nodelete=True
     if(ourUser==user):
         nodelete=False
@@ -51,6 +49,7 @@ def image(request):
         page_title=image.name,
         image=image,
         user=user,
+        comments=comments,
         nodelete=nodelete,
         save_url = request.route_url('image', imagename=name),
         )
@@ -81,3 +80,19 @@ def deletefile(filename):
     print("delete "+ filename)
     os.remove(filename)
     return
+
+
+
+@view_config(route_name='addComment')
+def addComment(request):
+    if nosession(request):
+        return HTTPFound(location = "/login")
+    #print("Adding comment")
+    image_id = request.params["imageid"]
+    session = Session()
+    image = session.query(Image).filter_by(id=image_id).first()
+    ourUser = getOurUser(request)
+    com = Comment(ourUser.id,image.id,datetime.datetime.now(),request.params['message'])
+    session.add(com)
+    session.commit()
+    return HTTPFound("/")
