@@ -2,7 +2,7 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from gallery.models import User
 from gallery import Session
-from gallery.views.views import site_layout
+from gallery.views.v_layout import site_layout
 from pyramid.response import Response
 from gallery.modules.session import nosession
 

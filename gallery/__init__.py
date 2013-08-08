@@ -10,6 +10,7 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('login', '/login')
+    config.add_route('register', '/register')
     config.add_route('users', '/users')
     config.add_route('logout', '/logout')
     config.add_route('deleteUser', '/deleteUser')

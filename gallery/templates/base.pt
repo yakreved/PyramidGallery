@@ -15,6 +15,7 @@ Description: Three-column blog design with the third column allocated for ads. F
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       metal:define-macro="layout">
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <head>
  <title>${page_title}</title>
     <link rel="stylesheet" href="${request.static_url('gallery:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
