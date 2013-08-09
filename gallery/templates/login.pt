@@ -6,12 +6,20 @@
 		<script>
 		function Register()
 		{
-		     var form = $('#registerForm');
-		     form.removeAttr("hidden")
-		     var logform = $('#loginForm');
-		     logform.attr("hidden","True")
 		     var btn = $("#switchBtn")
-		     btn.html( 'Log In');
+		     var logform = $('#loginForm');
+		     if(logform.attr("action") == "login")
+		     {
+                 logform.attr("action",'register')
+                 btn.html( 'Log In');
+                 $('#loginBtn').attr("value","Regiseter")
+              }
+              else
+              {
+                 logform.attr("action",'login')
+                 btn.html( 'Sign Up');
+                 $('#loginBtn').attr("value","Login")
+              }
 		}
 
 		</script>
@@ -26,33 +34,25 @@
 			</div>
 		</div>
 		<!-- end header -->
-		<div id="loginform" >
-		<!-- start content -->
-			<form action="\login" method="POST" id="loginForm">
-					    	<table>
-					    		<tr>
-					    			<td>Name:</td>      <td><input tabindex="1" autofocus type="text" name="username" value="user"></td>
-								</tr>
-					    		<tr>
-					    			<td>Password:</td>   <td><input tabindex="2" type="password" name="userpass" value="user"></td>
-					    		</tr>
-					    	</table>
-				<input type="submit" value="Login!" tabindex="3"/>
-			</form>
-			<form action="\register" method="POST" hidden="true" id="registerForm">
-					    	<table>
-					    	<th><td>Registration<td></th>
-					    		<tr>
-					    			<td>Name:</td>      <td><input tabindex="1" autofocus type="text" name="username" value="user"></td>
-								</tr>
-					    		<tr>
-					    			<td>Password:</td>   <td><input tabindex="2" type="password" name="userpass" value="user"></td>
-					    		</tr>
-					    	</table>
-				<input type="submit" value="Register!" tabindex="3"/>
-			</form>
-			<button OnClick="Register()" id="switchBtn">Sign Up</button>
-		</div>
-		</div>
+		<div id="page">
+			<div id="rss" style="margin-right:50%">
+                <button OnClick="Register()" id="switchBtn" >Sign Up</button>
+            </div>
+            <div id="loginform" >
+            <!-- start content -->
+                <form action="login" method="POST" id="loginForm">
+                                <table>
+                                    <tr>
+                                        <td>Name:</td>      <td><input tabindex="1" autofocus type="text" name="username" value="user"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Password:</td>   <td><input tabindex="2" type="password" name="userpass" value="pass"></td>
+                                    </tr>
+                                </table>
+                    <input id="loginBtn" type="submit" value="Login!" tabindex="3"/>
+                </form>
+            </div>
+            </div>
+        </div>
 	</body>
 </html>

@@ -28,7 +28,7 @@ Description: Three-column blog design with the third column allocated for ads. F
 		<h1><a href="\">Gallery</a></h1>
 		<p><a href="http://www.freecsstemplates.org/">Share images, have fun!</a></p>
 	</div>
-	<div id="rss"><a href="\logout">logout</a></div>
+	<div id="rss">Welcome, ${ourUser.name}! <a href="\logout">logout</a></div>
 	<div id="search">
 		<form id="searchform" method="get" action="">
 			<fieldset>

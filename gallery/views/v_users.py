@@ -4,7 +4,7 @@ from gallery.models import User
 from gallery import Session
 from gallery.views.v_layout import site_layout
 from pyramid.response import Response
-from gallery.modules.session import nosession
+from gallery.modules.session import nosession,getOurUser
 
 
 @view_config(route_name='users', renderer='gallery:templates/users.pt')
@@ -13,7 +13,7 @@ def users(request):
         return HTTPFound(location = "/login")
     session = Session()
     users = session.query(User).all()
-    return {'layout':site_layout(),'page_title':'Main page of gallery', 'users':users}
+    return {'layout':site_layout(),'page_title':'Users of gallery', 'users':users, 'ourUser': getOurUser(request)}
 
 
 @view_config(route_name='deleteUser')

@@ -15,9 +15,9 @@ from gallery.modules.imagefiles import deleteImageFile, addImageFile
 def addImage(request):
     if nosession(request):
         return HTTPFound(location = "/login")
+    ourUser = getOurUser(request)
     if request.method=="POST":
         session = Session()
-        ourUser = getOurUser(request)
         print('addind image by '+ ourUser.name)
         f =  request.POST['image']
         addImageFile(f.filename, f.file)
@@ -26,7 +26,7 @@ def addImage(request):
                       datetime.datetime.now(),fk_owner=ourUser.id)
         session.add(img)
         session.commit()
-    return {'layout':site_layout(),'page_title':'Add Image'}
+    return {'layout':site_layout(),'page_title':'Add Image', 'ourUser':ourUser}
 
 
 @view_config(route_name='image', renderer='gallery:templates/image.pt')
@@ -47,6 +47,7 @@ def image(request):
         comments=comments,
         nodelete=(ourUser.id !=user.id),
         save_url = request.route_url('image', imagename=name),
+        ourUser = ourUser
         )
 
 

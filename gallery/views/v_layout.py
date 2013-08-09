@@ -5,7 +5,7 @@ from pyramid.response import Response
 
 from gallery.models import Image
 from gallery import Session
-from gallery.modules.session import nosession
+from gallery.modules.session import nosession, getOurUser
 
 
 def site_layout():
@@ -27,4 +27,4 @@ def my_view(request):
         return HTTPFound(location = "/login")
     session = Session()
     images = session.query(Image).order_by(Image.date.desc()).all()[:5]
-    return {'layout':site_layout(),'page_title':'Users of gallery', 'images':images}
+    return {'layout':site_layout(),'page_title':'Users of gallery', 'images':images, "ourUser":getOurUser(request)}
