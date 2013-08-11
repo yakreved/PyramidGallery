@@ -1,11 +1,12 @@
-import sqlalchemy#начните работу с этой библиотеки
+import sqlalchemy #начните работу с этой библиотеки
 from sqlalchemy import create_engine
-from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, DateTime
+from sqlalchemy import Table, Column, Integer, String, Boolean, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
 engine = create_engine('postgresql://user:pass@localhost:5432/postgres')
 Base = declarative_base()
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -13,12 +14,16 @@ class User(Base):
     name = Column(String)
     password = Column(String)
     comments = relationship("Comment", backref="user")
- 
-    def __init__(self, name, password):
+    isadmin = Column(Boolean)
+
+    def __init__(self, name, password, isadmin):
         self.name = name
         self.password = password
+        self.isadmin = isadmin
+
     def __repr__(self):
-        return "<User('%s', '%s')>" % (self.name, self.password)
+        return "<User('%s', '%s', '%s')>" % (self.name, self.password, self.isadmin)
+
 
 class Image(Base):
     __tablename__ = 'images'
@@ -29,15 +34,15 @@ class Image(Base):
     date = Column(DateTime)
     fk_owner = Column(Integer)
     fk_gallery = Column(Integer)
- 
-    def __init__(self, name, description, url, date, fk_gallery = None, fk_owner = None):
+
+    def __init__(self, name, description, url, date, fk_gallery=None, fk_owner=None):
         self.name = name
         self.description = description
         self.url = url
         self.date = date
         self.fk_gallery = fk_gallery
         self.fk_owner = fk_owner
-    
+
     def __repr__(self):
         return "<User('%s', '%s')>" % (self.name, self.description)
 
@@ -50,14 +55,17 @@ class Comment(Base):
     date = Column(DateTime)
     text = Column(String)
 
-    def __init__(self,fk_owner, fk_image,date,text):
+    def __init__(self, fk_owner, fk_image, date, text):
         self.fk_owner = fk_owner
         self.fk_image = fk_image
         self.date = date
         self.text = text
 
     def __repr__(self):
-        return "<Comment('%s')>"%(self.text)
+        return "<Comment('%s')>" % (self.text)
 
+
+print("Base generating...")
 metadata = Base.metadata
 metadata.create_all(engine)
+print("DONE")

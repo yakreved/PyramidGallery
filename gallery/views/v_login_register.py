@@ -24,7 +24,7 @@ def login(request):
 def register(request):
     session = Session()
     newuser = User(request.params["username"],
-        request.params["userpass"])
+        request.params["userpass"],False)
     session.add(newuser)
     session.commit()
     response = Response()

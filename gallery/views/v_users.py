@@ -31,7 +31,7 @@ def deleteUser(request):
 def addUser(request):
     session = Session()
     newuser = User(request.params["username"],
-        request.params["userpass"])
+        request.params["userpass"],False)
     session.add(newuser)
     session.commit()
     return HTTPFound("/users")
