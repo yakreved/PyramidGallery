@@ -6,6 +6,12 @@ from gallery.models import User
 from gallery import Session
 
 
+def set_session_cookies(response, username, userpass):
+    response.set_cookie('username', value=username, max_age=86400)
+    response.set_cookie('userpass', value=userpass, max_age=86400)
+    print("cookies setted for user "+ username)
+
+
 @view_config(route_name='login', renderer='gallery:templates/login.pt')
 def login(request):
     if request.method == "POST":
@@ -13,22 +19,19 @@ def login(request):
         userpass = request.params['userpass']
         if checkuser(username, userpass):
             response = Response()
-            response.set_cookie('username', value=username, max_age=86400)
-            response.set_cookie('userpass', value=userpass, max_age=86400)
-            print("cookies setted for user")
-            return HTTPFound(location = "/", headers=response.headers)
-        return {'message':'Wrong login or password'}
-    return {'message':"Welcome!"}
+            set_session_cookies(response, username, userpass)
+            return HTTPFound(location="/", headers=response.headers)
+        return {'message': 'Wrong login or password'}
+    return {'message': "Welcome!"}
 
 @view_config(route_name='register')
 def register(request):
     session = Session()
     newuser = User(request.params["username"],
-        request.params["userpass"],False)
+        request.params["userpass"], False)
     session.add(newuser)
     session.commit()
     response = Response()
-    response.set_cookie('username', value=request.params["username"], max_age=86400)
-    response.set_cookie('userpass', value=request.params["userpass"], max_age=86400)
-    print("cookies setted for user" + request.params["username"])
+    set_session_cookies(response, request.params["username"],
+                        request.params["userpass"])
     return HTTPFound(location = "/", headers=response.headers)

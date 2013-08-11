@@ -41,7 +41,7 @@ def image(request):
     image = session.query(Image).filter_by(id=name).one()
     user = session.query(User).filter_by(id=image.fk_owner).one()
     comments = session.query(Comment).filter_by(fk_image=image.id).all()
-    print("User admin - "+ str(user.isadmin)+ "    "+ str(ourUser))
+    print("User admin - " + str(user.isadmin) + "    " + str(ourUser))
     return dict(
         layout=site_layout(),
         page_title=image.name,

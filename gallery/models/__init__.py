@@ -62,7 +62,7 @@ class Comment(Base):
         self.text = text
 
     def __repr__(self):
-        return "<Comment('%s')>" % (self.text)
+        return "<Comment('%s')>" % self.text
 
 
 print("Base generating...")

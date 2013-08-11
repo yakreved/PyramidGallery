@@ -10,10 +10,10 @@ from gallery.modules.session import nosession,getOurUser
 @view_config(route_name='users', renderer='gallery:templates/users.pt')
 def users(request):
     if nosession(request):
-        return HTTPFound(location = "/login")
+        return HTTPFound(location="/login")
     session = Session()
     users = session.query(User).all()
-    return {'layout':site_layout(),'page_title':'Users of gallery', 'users':users, 'ourUser': getOurUser(request)}
+    return {'layout': site_layout(), 'page_title': 'Users of gallery', 'users': users, 'ourUser': getOurUser(request)}
 
 
 @view_config(route_name='deleteUser')
@@ -31,7 +31,7 @@ def deleteUser(request):
 def addUser(request):
     session = Session()
     newuser = User(request.params["username"],
-        request.params["userpass"],False)
+        request.params["userpass"], False)
     session.add(newuser)
     session.commit()
     return HTTPFound("/users")
